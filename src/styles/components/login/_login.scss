@@ -1,0 +1,34 @@
+@use "../../variables" as v;
+@use "./form";
+.containerLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.headerLogin {
+  background: v.$color-secondary;
+  border-radius: 12px;
+  height: 20vh;
+}
+.containerForms {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  main {
+    width: 30%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    color: v.$color-secondary;
+    h2 {
+      margin-bottom: 50px;
+      font-size: 2.5rem;
+    }
+    .footerLogin {
+      text-align: center;
+    }
+  }
+}

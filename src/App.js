@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Error404 from "./components/errors/Error404";
-import Login from "./components/login/Login";
 import Home from "./pages/Home";
+import Login from "./pages/login/Login";
 
 function App() {
   return (
