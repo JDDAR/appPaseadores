@@ -17,3 +17,20 @@ exports.getParametrosPost = (req, res, next) => {
       " </body></html>",
   );
 };
+
+exports.ownersUsers = (req, res) => {
+  if (req.query.id === "123") {
+    var userO = {
+      id: "123",
+      nombre: "Jose",
+    };
+    res.send(userO);
+  } else {
+    res.statuscode = 404;
+    res.end(
+      "<html> <head><title>Usuario</title></head><body> con  </br> usuario con id :" +
+        req.body.id +
+        " no existe  </body></html>",
+    );
+  }
+};

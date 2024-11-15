@@ -5,4 +5,6 @@ module.exports = (app) => {
     .route("/api/owner")
     .get(ownerController.getAllOwner)
     .post(ownerController.getParametrosPost);
+
+  app.route("/api/ownersUsers").get(ownerController.ownersUsers);
 };
