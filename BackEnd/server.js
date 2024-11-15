@@ -1,3 +1,5 @@
+var mongoose = require("mongoose");
+
 const express = require("express");
 const http = require("http");
 const path = require("path");
@@ -7,6 +9,30 @@ const fs = require("fs");
 
 const hostname = "localhost";
 const port = 2000;
+
+//Conectando a la base de datos ***********************
+var baseDBURL = "mongodb://127.0.0.1:27017/appPaseadores";
+mongoose.connect(baseDBURL);
+
+//Estados -eventos que se presentan en la coneccion ***
+mongoose.connection.on("connected", function () {
+  console.log("Conexion a mongodb realizada en: " + baseDBURL);
+});
+mongoose.connection.on("error", function (err) {
+  console.log("Errorn conectando a mongo: " + err);
+});
+mongoose.connection.on("disconnected", function (err) {
+  console.log("Desconeccion realizada - se ha desconectado ..." + err);
+});
+
+process.on("SIGINT", function () {
+  mongoose.connection.close(function () {
+    console.log("Coneccion finalizada por el servidor ... ");
+    process.exit(0);
+  });
+});
+
+//****************************************************
 
 //Instanciando express
 const app = express();
