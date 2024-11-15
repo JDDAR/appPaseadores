@@ -1,0 +1,28 @@
+@use "../../variables" as v;
+@use "../login/input" as i;
+@use "../login/errorInput" as e;
+@use "../buttons" as b;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  fieldset {
+    border: none;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 10px;
+    @include i.input();
+    @include e.errorInput();
+  }
+  .flexInput {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    fieldset {
+      width: 100%;
+    }
+  }
+  @include b.button();
+}

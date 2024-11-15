@@ -1,0 +1,33 @@
+@use "../../_variables.scss" as v;
+
+.buttonsRegistro {
+  display: flex;
+  gap: 25px;
+  .buttonRegistro {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border-radius: 12px;
+    background: none;
+    border: 1px solid v.$color-secondary;
+    font-size: 1.2rem;
+    color: v.$color-secondary;
+    cursor: pointer;
+    text-decoration: none;
+    .iconButton {
+      font-size: 3rem;
+      color: v.$color-secondary;
+    }
+  }
+  :hover {
+    background: v.$color-secondary;
+    color: v.$color-primary;
+    .iconButton {
+      color: v.$color-primary;
+    }
+  }
+}
