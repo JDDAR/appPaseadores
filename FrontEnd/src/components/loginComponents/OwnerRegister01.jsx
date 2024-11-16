@@ -2,11 +2,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import React from "react";
 
 import { useContext } from "react";
-import axiosInstance from "../../api/axioInstance";
 import AuthContext from "../../context/AuthContext";
 import { userRegisterShema } from "../../schemas/userRegister";
 
 const initialValues = {
+  role: "owner",
   nameUser: "",
   telUser: "",
   addressUser: "",
@@ -16,15 +16,13 @@ const initialValues = {
 };
 
 const OwnerRegister01 = () => {
-  let { setStep } = useContext(AuthContext);
+  let { setStep, userData, setUserData } = useContext(AuthContext);
 
   const onSubmit = async (values) => {
-    try {
-      const response = await axiosInstance.post("/api/createUser", values);
-      console.log("respuesta : " + JSON.stringify(response));
-    } catch (error) {
-      console.log("error al enviar datos");
-    }
+    //Guardamos los datos en el contexto
+    setUserData({ ...userData, ownerData: values });
+    //Cambiar al siguiente formulario
+    setStep("owner02");
   };
   return (
     <>
@@ -42,6 +40,13 @@ const OwnerRegister01 = () => {
             validationSchema={userRegisterShema}
           >
             <Form autoComplete="off">
+              <Field
+                name="role"
+                type="text"
+                id="role"
+                value="owner"
+                style={{ display: "none" }}
+              ></Field>
               <fieldset>
                 <label htmlFor="nameUser">Nombre del dueño</label>
                 <Field name="nameUser" type="text" id="nameUser" autoFocus />

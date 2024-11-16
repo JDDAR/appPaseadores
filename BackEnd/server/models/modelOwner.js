@@ -1,13 +1,8 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
-var Shema = mongoose.Schema;
-
-var shemaOwners = new Shema({
-  name: { type: String, Require: "Nombre es obligatorio" },
-  telephone: { type: String, Require: "Telefono es obligatorio" },
-  address: { type: String, Require: "Direccion es obligatoria" },
-  email: { type: String, Require: "Correo es obligatorio" },
-  password: { type: String, Require: "Password es obligatorio" },
+const ownerShema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", require: true },
+  pets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
 });
 
-module.exports = mongoose.model("User", shemaOwners);
+module.exports = mongoose.model("Owner", ownerShema);

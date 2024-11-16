@@ -1,11 +1,10 @@
 module.exports = (app) => {
-  //Importamos el controlador
-  var ownerController = require("../controllers/ownerControllers");
-  app
-    .route("/api/owner")
-    .get(ownerController.getAllOwner)
-    .post(ownerController.getParametrosPost);
+  const ownerController = require("../controllers/ownerControllers");
+  const authController = require("../controllers/authController");
+  const adminController = require("../controllers/adminController");
 
-  app.route("/api/ownersUsers").get(ownerController.getAllUsers);
-  app.route("/api/createUser").post(ownerController.registerUser);
+  app.route("/api/ownersUsers").get(adminController.getAllUsers);
+
+  // Ruta para registro de usuario
+  app.route("/api/createUser").post(authController.registerUser);
 };

@@ -8,7 +8,7 @@ const SignIn = () => {
     <>
       <main>
         <h2>Iniciar Sesión</h2>
-        <div class="cardForm">
+        <div className="cardForm">
           <form autoComplete="off">
             <fieldset>
               <label htmlFor="email">Correo</label>

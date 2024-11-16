@@ -18,7 +18,7 @@ const SingUp = () => {
           maecenas magna a sociis massa,
         </p>
         <div className="cardForm">
-          <div class="buttonsRegistro">
+          <div className="buttonsRegistro">
             <NavLink to="/login/registroDueño" className="buttonRegistro">
               <LuSmilePlus className="iconButton" />
               Soy dueño
