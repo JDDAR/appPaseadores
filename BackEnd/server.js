@@ -1,11 +1,12 @@
 var mongoose = require("mongoose");
-
 const express = require("express");
 const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const fs = require("fs");
+
+const cors = require("cors");
 
 const hostname = "localhost";
 const port = 2000;
@@ -36,6 +37,8 @@ process.on("SIGINT", function () {
 
 //Instanciando express
 const app = express();
+
+app.use(cors());
 
 //Creando el documento donde se guardara la informacion extraida de morgan
 const archivoLog = fs.createWriteStream(path.join(__dirname, "serverLog.log"), {

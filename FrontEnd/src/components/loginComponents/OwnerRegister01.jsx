@@ -2,25 +2,30 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import React from "react";
 
 import { useContext } from "react";
+import axiosInstance from "../../api/axioInstance";
 import AuthContext from "../../context/AuthContext";
-import { ownerRegisterShema } from "../../schemas/ownerRegister";
+import { userRegisterShema } from "../../schemas/userRegister";
 
 const initialValues = {
-  nameOwner: "",
-  telOwner: "",
-  direccOwner: "",
-  emailOwner: "",
-  passwordOwner: "",
-  passwordOwner02: "",
+  nameUser: "",
+  telUser: "",
+  addressUser: "",
+  emailUser: "",
+  passwordUser: "",
+  passwordUser02: "",
 };
 
 const OwnerRegister01 = () => {
   let { setStep } = useContext(AuthContext);
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    try {
+      const response = await axiosInstance.post("/api/createUser", values);
+      console.log("respuesta : " + JSON.stringify(response));
+    } catch (error) {
+      console.log("error al enviar datos");
+    }
   };
-
   return (
     <>
       <main className="mainOwner">
@@ -34,79 +39,79 @@ const OwnerRegister01 = () => {
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
-            validationSchema={ownerRegisterShema}
+            validationSchema={userRegisterShema}
           >
             <Form autoComplete="off">
               <fieldset>
-                <label htmlFor="email">Nombre del dueño</label>
-                <Field name="nameOwner" type="text" id="nameOwner" autoFocus />
+                <label htmlFor="nameUser">Nombre del dueño</label>
+                <Field name="nameUser" type="text" id="nameUser" autoFocus />
                 <ErrorMessage
-                  name="nameOwner"
+                  name="nameUser"
                   component="p"
                   className="errorInput"
                 />
               </fieldset>
               <div className="flexInput">
                 <fieldset>
-                  <label htmlFor="telOwner">Telefono de contacto</label>
-                  <Field name="telOwner" type="text" id="telOwner" />
+                  <label htmlFor="telUser">Telefono de contacto</label>
+                  <Field name="telUser" type="text" id="telUser" />
                   <ErrorMessage
-                    name="telOwner"
+                    name="telUser"
                     component="p"
                     className="errorInput"
                   />
                 </fieldset>
                 <fieldset>
-                  <label htmlFor="direccOwner">Dirección del dueño</label>
-                  <Field name="direccOwner" type="text" id="direccOwner" />
+                  <label htmlFor="addressUser">Dirección del dueño</label>
+                  <Field name="addressUser" type="text" id="addressUser" />
                   <ErrorMessage
-                    name="direccOwner"
+                    name="addressUser"
                     component="p"
                     className="errorInput"
                   />
                 </fieldset>
               </div>
               <fieldset>
-                <label htmlFor="emailOwner"> Correo Electronico</label>
+                <label htmlFor="emailUser"> Correo Electronico</label>
                 <Field
-                  name="emailOwner"
+                  name="emailUser"
                   type="text"
                   placeholder="Ingrese el correo electronico"
-                  id="emailOwner"
+                  id="emailUser"
                 />
                 <ErrorMessage
-                  name="emailOwner"
+                  name="emailUser"
                   component="p"
                   className="errorInput"
                 />
               </fieldset>
               <fieldset>
-                <label htmlFor="passwordOwner"> Ingrese su contraseña</label>
+                <label htmlFor="passwordUser"> Ingrese su contraseña</label>
                 <Field
-                  name="passwordOwner"
-                  id="passwordOwner"
+                  name="passwordUser"
+                  id="passwordUser"
                   type="password"
                   placeholder="Ingrese su contraseña "
                 />
                 <ErrorMessage
-                  name="passwordOwner"
+                  name="passwordUser"
                   component="p"
                   className="errorInput"
                 />
               </fieldset>
               <fieldset>
-                <label htmlFor="passwordOwner02">
+                <label htmlFor="passwordUser02">
                   {" "}
                   Ingrese de nuevo la contraseña{" "}
                 </label>
                 <Field
-                  name="passwordOwner02"
-                  id="passwordOwner02"
+                  name="passwordUser02"
+                  id="passwordUser02"
                   type="password"
                   placeholder="Ingrese de nuevo la contraseña "
                 />
                 <ErrorMessage
-                  name="passwordOwner02"
+                  name="passwordUser02"
                   component="p"
                   className="errorInput"
                 />

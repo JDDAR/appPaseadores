@@ -6,5 +6,6 @@ module.exports = (app) => {
     .get(ownerController.getAllOwner)
     .post(ownerController.getParametrosPost);
 
-  app.route("/api/ownersUsers").get(ownerController.ownersUsers);
+  app.route("/api/ownersUsers").get(ownerController.getAllUsers);
+  app.route("/api/createUser").post(ownerController.registerUser);
 };
