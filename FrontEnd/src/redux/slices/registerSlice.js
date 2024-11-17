@@ -10,6 +10,7 @@ const initialState = {
   userId: null,
   //Cargo los datos desde el localstorage
   userData: JSON.parse(localStorage.getItem("userData")) || {},
+  isAuthenticated: Boolean(localStorage.getItem("userData")),
 };
 
 const registerSlice = createSlice({
@@ -30,7 +31,7 @@ const registerSlice = createSlice({
     },
     setUserData: (state, action) => {
       state.userData = action.payload;
-
+      state.isAuthenticated = true;
       //Voy a guardar los datos en el localStorage
       localStorage.setItem("userData", JSON.stringify(action.payload));
     },
@@ -42,7 +43,9 @@ const registerSlice = createSlice({
       state.userData = {};
       state.userDataGeneral = {};
       state.petData = {};
+      state.isAuthenticated = false;
       state.stepLogin = "signin";
+      localStorage.removeItem("userData");
     },
   },
 });

@@ -9,12 +9,19 @@ exports.registerUser = async (req, res) => {
   try {
     const { userDataGeneral, petData } = req.body;
 
+    //Hasheando la cpontraseña
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(
+      userDataGeneral.passwordUser,
+      saltRounds,
+    );
+
     var newUser = new User({
       name: userDataGeneral.nameUser,
       telephone: userDataGeneral.telUser,
       address: userDataGeneral.addressUser,
       email: userDataGeneral.emailUser,
-      password: userDataGeneral.passwordUser,
+      password: hashedPassword, // Guardando la contraseña hasheada
       role: userDataGeneral.role,
     });
 
@@ -68,7 +75,7 @@ exports.loginUser = async (req, res) => {
       userId: user._id,
       nameUser: user.name,
       email: user.email,
-      role: role.role,
+      role: user.role,
       profileImage: user.profileImage || null,
     };
 

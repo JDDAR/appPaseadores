@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { clearUserData } from "../../redux/slices/userSlice";
 
 const HeaderMenu = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //Estado local para el manejo del menu desplegable
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   //Obtengo los datos del usuario desde el estado
   const userData = useSelector((state) => state.register.userData);
   //console.log(userData.userDataGeneral.nameUser);
-  // Uso para evitar errores
-  const userName = userData?.userDataGeneral?.nameUser || "Invitado"; //funcion para obtener la inicial del nombre
+  // validacion : Uso para evitar errores
+  const userName = userData?.userDataGeneral?.nameUser || userData.nameUser;
+  const userRole = userData?.userDataGeneral?.role || userData.role;
+
+  //Obtengo la inicial del nombre
   const initialName = (name) => {
     if (name) {
       const nameLetra = name.split(" ");
@@ -22,11 +29,37 @@ const HeaderMenu = (props) => {
     return "";
   };
 
+  //Funcion para el manejo del estado del menu desplegable
+  const profileClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  //Funcion para redireccionar al perfil de cada usuario segun el rol
+
+  const handleToPerfil = () => {
+    switch (userRole) {
+      case "owner":
+        navigate("/ownerProfile");
+        break;
+      case "walker":
+        navigate("/walkerProfile");
+        break;
+      case "admin":
+        navigate("/adminProfile");
+        break;
+      default:
+        navigate("/");
+        break;
+    }
+    setIsMenuOpen(false);
+  };
+
+  //Manejando el cierre de sesion
   const handleLogout = () => {
     dispatch(clearUserData());
     localStorage.removeItem("userData"); // limpiando el localstorage
+    navigate("/");
     window.location.reload();
-    Navigate("/");
   };
 
   return (
@@ -50,21 +83,37 @@ const HeaderMenu = (props) => {
                   src={userData.profileImage}
                   alt="Avatar usuario"
                   className="userProfileHeader__img"
+                  onClick={profileClick}
                 />
               ) : (
-                <div className="userProfileHeader__letters">
+                <div
+                  onClick={profileClick}
+                  className="userProfileHeader__letters"
+                >
                   {initialName(userName)}
                 </div>
               )}
-              <div className="modalHeader">
-                <span className="userProfileHeader__name">{userName}</span>
-                <NavLink to="/" className="logoutButton" onClick={handleLogout}>
-                  Cerrar sesión
-                </NavLink>
-              </div>
+              {isMenuOpen && (
+                <div className="modalHeader">
+                  <span className="userProfileHeader__name">{userName}</span>
+                  <button className="buttonRutes" onClick={handleToPerfil}>
+                    {" "}
+                    Ver Perfil{" "}
+                  </button>
+                  <NavLink
+                    to="/"
+                    className="buttonRutes"
+                    onClick={handleLogout}
+                  >
+                    Cerrar Sesión
+                  </NavLink>
+                </div>
+              )}
             </div>
           ) : (
-            <NavLink to={props.buttonTo}>Iniciar Sesión</NavLink>
+            <NavLink className="button-primary" to="/login">
+              Iniciar Sesión
+            </NavLink>
           )}
         </div>
       </div>

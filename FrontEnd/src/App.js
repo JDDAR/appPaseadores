@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Error404 from "./components/errors/Error404";
 import OwnerRegister from "./components/loginComponents/OwnerRegister";
+import OwnerProfile from "./pages/profiles/OwnerProfile";
+import WalkerProfile from "./pages/profiles/WalkerProfile";
 import Home from "./pages/Home";
 import Login from "./pages/login/Login";
 import AdminProfile from "./pages/profiles/AdminProfile";
@@ -14,8 +16,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/registroDueño" element={<OwnerRegister />} />
-          <Route path="/adminProfile" element={<AdminProfile />} />
           <Route path="/profile/:userId" element={<Profiles />} />
+          <Route path="/ownerProfile" element={<OwnerProfile />} />
+          <Route path="/walkerProfile" element={<WalkerProfile />} />
+          <Route path="/AdminProfile" element={<AdminProfile />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
