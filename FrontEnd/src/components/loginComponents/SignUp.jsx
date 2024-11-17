@@ -1,14 +1,12 @@
 import React from "react";
 import { LuSmilePlus } from "react-icons/lu";
 import { MdPets } from "react-icons/md";
+import { useSelector } from "react-redux";
 
-import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
 import { NavLink } from "react-router-dom";
 
 const SingUp = () => {
-  let { setStep } = useContext(AuthContext);
-
+  const setStep = useSelector((state) => state.register.step);
   return (
     <>
       <main>

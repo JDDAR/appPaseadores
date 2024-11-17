@@ -7,4 +7,7 @@ module.exports = (app) => {
 
   // Ruta para registro de usuario
   app.route("/api/createUser").post(authController.registerUser);
+
+  //Ruta para el login
+  app.route("/api/login").post(authController.loginUser);
 };

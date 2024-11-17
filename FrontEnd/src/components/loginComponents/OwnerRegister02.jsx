@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../api/axioInstance";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { petRegisterShema } from "../../schemas/petRegisterShema";
 import { LuCheck } from "react-icons/lu";
+import { setStep, setUserData } from "../../redux/slices/registerSlice";
 
 const initialPetValues = {
   petName: "",
@@ -15,14 +15,15 @@ const initialPetValues = {
 };
 
 const OwnerRegister02 = () => {
-  let { setStep, userData, setUserData } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const { userDataGeneral } = useSelector((state) => state.register);
 
   const onSubmit = async (values) => {
-    //guardando los datos de la mascota en el contexto
     const completeData = {
-      ownerData: userData.ownerData,
+      userDataGeneral,
       petData: values,
     };
+
     try {
       const response = await axiosInstance.post(
         "/api/createUser",
@@ -30,24 +31,22 @@ const OwnerRegister02 = () => {
       );
       console.log("Datos enviados correctamente:", completeData);
 
-      //Verificando si se recibe el userId
       const userId = response.data.userId;
-      console.log("el id del usuario generado por mongo es : " + userId);
+      console.log("El ID del usuario generado por MongoDB es:", userId);
 
-      //actualizando el context
-      setUserData({ ...userData, userId });
+      //Actualizamos el user data en redux
+      dispatch(setUserData({ userId, userDataGeneral, petData: values }));
 
-      setStep("owner03", userId);
+      //navegando al siguiente nivel
+      dispatch(setStep("owner03", userId));
     } catch (error) {
       if (error.response) {
         console.error("Error del servidor:", error.response.data);
       } else {
         console.error("Error de la solicitud:", error.message);
-        alert("Hubo un error al registrar los datos");
       }
     }
   };
-
   return (
     <>
       <main className="mainOwner">
@@ -147,5 +146,4 @@ const OwnerRegister02 = () => {
     </>
   );
 };
-
 export default OwnerRegister02;

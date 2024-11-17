@@ -1,8 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import React from "react";
-
-import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { setUserDataGeneral, setStep } from "../../redux/slices/registerSlice";
 import { userRegisterShema } from "../../schemas/userRegister";
 
 const initialValues = {
@@ -16,14 +14,13 @@ const initialValues = {
 };
 
 const OwnerRegister01 = () => {
-  let { setStep, userData, setUserData } = useContext(AuthContext);
+  const dispatch = useDispatch();
 
-  const onSubmit = async (values) => {
-    //Guardamos los datos en el contexto
-    setUserData({ ...userData, ownerData: values });
-    //Cambiar al siguiente formulario
-    setStep("owner02");
+  const onSubmit = (values) => {
+    dispatch(setUserDataGeneral(values));
+    dispatch(setStep("owner02"));
   };
+
   return (
     <>
       <main className="mainOwner">

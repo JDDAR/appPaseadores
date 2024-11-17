@@ -1,24 +1,30 @@
-import React from "react";
-
-import { LuCheck } from "react-icons/lu";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setUserData } from "../../redux/slices/userSlice";
 
-const OwnerExitRegister = ({ userData }) => {
+import { LuCheck } from "react-icons/lu";
+import { useEffect } from "react";
+
+const OwnerExitRegister = () => {
+  var userData = useSelector((state) => state.register.userData);
   const dispatch = useDispatch();
 
-  console.log("Datos de userData en OwnerExitRegister:", userData);
+  //
+  useEffect(() => {
+    if (userData && userData.userId) {
+      console.log("UserID disponible : ", userData.userId);
+    } else {
+      console.error("UstedId no disponible");
+    }
+  }, [userData]); // Este efecto se ejecutará cada vez que userData cambio
 
-  if (!userData || !userData.userId) {
-    console.error("userId no está definido en el contexto");
-    return <p>Error al cargar los datos del usuario.</p>;
-  }
-
-  //Funcion boton ver perfil
-  const hadleViewProfile = () => {
-    //guardando los datos del usuario en redux
-    dispatch(setUserData(userData));
+  const handleViewProfile = () => {
+    if (userData && userData.userId) {
+      dispatch(setUserData(userData.userId));
+      console.log(userData);
+    } else {
+      console.error("El estado de userData no está dipponible");
+    }
   };
 
   return (
@@ -39,7 +45,7 @@ const OwnerExitRegister = ({ userData }) => {
         <div className="cardExit__buttons">
           <NavLink
             to={`/profile/${userData.userId}`}
-            onClick={hadleViewProfile}
+            onClick={handleViewProfile}
           >
             Ver perfil
           </NavLink>

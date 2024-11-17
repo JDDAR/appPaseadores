@@ -1,27 +1,22 @@
-import React, { useState } from "react";
 import HeaderMenu from "../../components/header/HeaderMenu";
 import SignIn from "../../components/loginComponents/SignIn";
 import ForgotPassword from "../../components/loginComponents/ForgotPassword";
 import SingUp from "../../components/loginComponents/SignUp";
 
-import AuthContext from "../../context/AuthContext";
+import { useSelector } from "react-redux";
 
 const Login = () => {
-  const [step, setStep] = useState("signin");
+  const stepLogin = useSelector((state) => state.register.stepLogin);
+
   return (
     <div className="container">
-      <div className="containerLogin">
-        <header className="headerLogin">
-          <HeaderMenu />
-        </header>
-        {/* Utilizando context pára "navegar */}
-        <AuthContext.Provider value={{ step, setStep }}>
-          <div className="containerForms">
-            {step === "signin" && <SignIn />}
-            {step === "signup" && <SingUp />}
-            {step === "forgot" && <ForgotPassword />}
-          </div>
-        </AuthContext.Provider>
+      <header className="headerLogin">
+        <HeaderMenu buttonTo="" />
+      </header>
+      <div className="containerForms">
+        {stepLogin === "signin" && <SignIn />}
+        {stepLogin === "signup" && <SingUp />}
+        {stepLogin === "forgot" && <ForgotPassword />}
       </div>
     </div>
   );
