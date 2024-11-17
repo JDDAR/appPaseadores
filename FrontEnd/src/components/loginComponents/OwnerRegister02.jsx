@@ -29,13 +29,18 @@ const OwnerRegister02 = () => {
         completeData,
       );
       console.log("Datos enviados correctamente:", completeData);
-      alert("Registro completado con éxito");
-      console.log(completeData);
-      setStep("");
+
+      //Verificando si se recibe el userId
+      const userId = response.data.userId;
+      console.log("el id del usuario generado por mongo es : " + userId);
+
+      //actualizando el context
+      setUserData({ ...userData, userId });
+
+      setStep("owner03", userId);
     } catch (error) {
       if (error.response) {
         console.error("Error del servidor:", error.response.data);
-        alert(`Error del servidor: ${error.response.data.info}`);
       } else {
         console.error("Error de la solicitud:", error.message);
         alert("Hubo un error al registrar los datos");
@@ -63,7 +68,7 @@ const OwnerRegister02 = () => {
             onSubmit={onSubmit}
             validationSchema={petRegisterShema}
           >
-            <Form autoComplete="off">
+            <Form autoComplete="on">
               <fieldset>
                 <label htmlFor="petName">Nombre de la mascota</label>
                 <Field name="petName" type="text" id="petName" autoFocus />

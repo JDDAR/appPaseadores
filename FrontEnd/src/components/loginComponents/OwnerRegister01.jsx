@@ -39,7 +39,7 @@ const OwnerRegister01 = () => {
             onSubmit={onSubmit}
             validationSchema={userRegisterShema}
           >
-            <Form autoComplete="off">
+            <Form autoComplete="on">
               <Field
                 name="role"
                 type="text"

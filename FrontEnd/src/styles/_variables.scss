@@ -7,6 +7,10 @@ $color-primary: #f8f4f9;
 $color-secondary: #1c7f84;
 $color-error: #ff7777;
 
+$shadow-container:
+  rgba($color-secondary, 0.3) 0px 1px 2px 0px,
+  rgba($color-secondary, 0.15) 0px 1px 3px 1px;
+
 * {
   padding: 0;
   margin: 0;

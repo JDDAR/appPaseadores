@@ -7,7 +7,7 @@ import AuthContext from "../../context/AuthContext";
 import OwnerExitRegister from "./OwnerExitRegister";
 
 const OwnerRegister = () => {
-  const [step, setStep] = useState("owner03");
+  const [step, setStep] = useState("owner01");
   //Agregaremos un estado para almacenar los datos temporalmente
   const [userData, setUserData] = useState({
     ownerData: {

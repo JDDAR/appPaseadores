@@ -25,10 +25,16 @@ exports.registerUser = async (req, res) => {
       await registrerOwnerData(savedUser._id, petData);
     }
 
-    res.send({ msg: "OK", info: "Usuario creado exitosamente" });
+    res.send({
+      msg: "OK",
+      info: "Usuario creado exitosamente",
+      userId: savedUser.id,
+    });
   } catch (error) {
     res
       .status(500)
       .send({ msg: "ERROR", info: "Error creando usuario" + error });
   }
 };
+
+//Perfil Usuario
