@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import axiosInstance from "../../api/axioInstance";
+import axiosInstance from "../../../api/axioInstance";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { petRegisterShema } from "../../schemas/petRegisterShema";
+import { petRegisterShema } from "../../../schemas/petRegisterShema";
 import { LuCheck } from "react-icons/lu";
-import { setStep, setUserData } from "../../redux/slices/registerSlice";
+import { setStep, setUserData } from "../../../redux/slices/registerSlice";
 
 const initialPetValues = {
   petName: "",

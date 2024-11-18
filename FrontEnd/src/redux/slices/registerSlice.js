@@ -3,10 +3,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  step: "owner01",
+  step: "user01",
   stepLogin: "signin",
   userDataGeneral: {},
   petData: {},
+  walkerData: {},
   userId: null,
   //Cargo los datos desde el localstorage
   userData: JSON.parse(localStorage.getItem("userData")) || {},
@@ -25,6 +26,9 @@ const registerSlice = createSlice({
     },
     setPetData: (state, action) => {
       state.petData = action.payload;
+    },
+    setWalkerData: (state, action) => {
+      state.walkerData = action.payload;
     },
     setUserId: (state, action) => {
       state.userId = action.payload;
@@ -54,6 +58,7 @@ export const {
   setStep,
   setUserDataGeneral,
   setPetData,
+  setWalkerData,
   setUserId,
   setStepLogin,
   setUserData,

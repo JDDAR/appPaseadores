@@ -1,0 +1,23 @@
+@use "../../../variables" as v;
+/* Establecer el tamaño del calendario */
+.fc {
+  max-width: 1000px; /* Cambia el tamaño máximo */
+  margin: 0 auto; /* Centra el calendario */
+}
+
+/* También puedes ajustar el tamaño dentro de las vistas de mes, semana, etc. */
+.fc-daygrid-view {
+  width: 100%; /* Ancho completo del calendario */
+  max-width: 1200px; /* Tamaño máximo específico */
+}
+
+.fc-header-toolbar {
+  width: 100%; /* Ajusta el tamaño de la barra de herramientas */
+}
+
+.fc-daygrid-day {
+  height: 80px; /* Ajusta la altura de cada día en el calendario */
+}
+.calendar-container {
+  border: 1px solid red;
+}

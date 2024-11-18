@@ -20,8 +20,8 @@ const SingUp = () => {
             <NavLink to="/login/registroDueño" className="buttonRegistro">
               <LuSmilePlus className="iconButton" />
               Soy dueño
-            </NavLink>{" "}
-            <NavLink className="buttonRegistro">
+            </NavLink>
+            <NavLink to="/login/registroPaseador" className="buttonRegistro">
               <MdPets className="iconButton" />
               Soy Paseador
             </NavLink>

@@ -1,10 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
-import { setUserDataGeneral, setStep } from "../../redux/slices/registerSlice";
-import { userRegisterShema } from "../../schemas/userRegister";
+import { userRegisterShema } from "../../../schemas/userRegister";
+import {
+  setUserDataGeneral,
+  setStep,
+} from "../../../redux/slices/registerSlice";
 
 const initialValues = {
-  role: "owner",
+  role: "walker",
   nameUser: "",
   telUser: "",
   addressUser: "",
@@ -13,18 +16,19 @@ const initialValues = {
   passwordUser02: "",
 };
 
-const OwnerRegister01 = () => {
+const WalkerRegister01 = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (values) => {
     dispatch(setUserDataGeneral(values));
-    dispatch(setStep("owner02"));
+    console.log(values);
+    dispatch(setStep("walker02"));
   };
 
   return (
     <>
       <main className="mainOwner">
-        <h3>Datos del dueño</h3>
+        <h3>Datos del Paseador</h3>
         <header>
           <button className="buttonSelect">1</button> <hr />
           <button>2</button> <hr />
@@ -41,11 +45,11 @@ const OwnerRegister01 = () => {
                 name="role"
                 type="text"
                 id="role"
-                value="owner"
+                value="walker"
                 style={{ display: "none" }}
               ></Field>
               <fieldset>
-                <label htmlFor="nameUser">Nombre del dueño</label>
+                <label htmlFor="nameUser">Nombre del Paseador</label>
                 <Field name="nameUser" type="text" id="nameUser" autoFocus />
                 <ErrorMessage
                   name="nameUser"
@@ -118,11 +122,7 @@ const OwnerRegister01 = () => {
                   className="errorInput"
                 />
               </fieldset>
-              <button
-                type="submit"
-                //onClick={() => setStep("owner02")}
-                className="button-primary"
-              >
+              <button type="submit" className="button-primary">
                 Siguiente
               </button>
             </Form>
@@ -132,5 +132,4 @@ const OwnerRegister01 = () => {
     </>
   );
 };
-
-export default OwnerRegister01;
+export default WalkerRegister01;

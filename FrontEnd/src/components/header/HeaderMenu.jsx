@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { clearUserData } from "../../redux/slices/userSlice";
 
-const HeaderMenu = (props) => {
+const HeaderMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

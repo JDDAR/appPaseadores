@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const { registrerOwnerData } = require("./ownerControllers");
+const { registerWalkerData } = require("./walkerController");
 const User = require("../models/modelUsers");
+const modelWalker = require("../models/modelWalker");
 
 //CREANDO USUARIO
 exports.registerUser = async (req, res) => {
   console.log("Invocando registerUser");
   try {
-    const { userDataGeneral, petData } = req.body;
+    const { userDataGeneral, petData, walkerData } = req.body;
 
     //Hasheando la cpontraseña
     const saltRounds = 10;
@@ -27,10 +29,15 @@ exports.registerUser = async (req, res) => {
 
     const savedUser = await newUser.save();
 
-    //Verifico el rol del usuario
-    if (userDataGeneral.role === "owner") {
-      //Registro los datos del dueño y mascota
-      await registrerOwnerData(savedUser._id, petData);
+    switch (userDataGeneral.role) {
+      case "owner":
+        await registrerOwnerData(savedUser._id, petData);
+        break;
+      case "walker":
+        await registerWalkerData(savedUser._id, walkerData);
+        break;
+      default:
+        break;
     }
 
     res.send({

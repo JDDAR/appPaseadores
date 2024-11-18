@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setUserData } from "../../redux/slices/userSlice";
+import { setUserData } from "../../../redux/slices/userSlice";
 
 import { LuCheck } from "react-icons/lu";
 import { useEffect } from "react";

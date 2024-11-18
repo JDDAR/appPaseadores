@@ -3,8 +3,8 @@ import HeaderMenu from "../../components/header/HeaderMenu";
 
 const OwnerProfile = () => {
   return (
-    <div className="container">
-      <header className="headerLogin">
+    <div className="container containerProfile">
+      <header>
         <HeaderMenu buttonTo="" />
       </header>
       <div>

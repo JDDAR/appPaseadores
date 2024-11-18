@@ -59,7 +59,8 @@ app.use(bodyParser.json());
 //Ruta para definir origen de los archivos (Ruta absoluta)
 app.use(express.static(path.join(__dirname, "public")));
 
-require("./server/routes/ownerRoutes")(app);
+require("./server/routes/userRoutes")(app);
+require("./server/routes/walkerRoutes")(app);
 
 //Definiendo las herramientas de nuestro servidor
 app.use((req, res, next) => {

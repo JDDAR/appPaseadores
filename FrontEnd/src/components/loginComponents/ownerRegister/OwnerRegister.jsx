@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import OwnerRegister01 from "./OwnerRegister01";
 import OwnerRegister02 from "./OwnerRegister02";
 import OwnerExitRegister from "./OwnerExitRegister";
-import HeaderMenu from "../header/HeaderMenu";
+import HeaderMenu from "../../header/HeaderMenu";
 
 const OwnerRegister = () => {
   const step = useSelector((state) => state.register.step);
@@ -14,7 +14,7 @@ const OwnerRegister = () => {
           <HeaderMenu />
         </header>
         <div className="containerForms">
-          {step === "owner01" && <OwnerRegister01 />}
+          {step === "user01" && <OwnerRegister01 />}
           {step === "owner02" && <OwnerRegister02 />}
           {step === "owner03" && <OwnerExitRegister />}
         </div>
