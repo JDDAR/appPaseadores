@@ -19,10 +19,24 @@ $shadow-container:
 .container {
   padding: 12px;
 }
+.containerContent {
+  width: 50%;
+  margin: auto;
+  position: relative;
+}
 body {
   background: $color-primary;
   width: 100vw;
   height: 100vh;
   position: relative;
   font-family: $font-family;
+}
+.button-primary {
+  padding: 5px 35px;
+  background: $color-primary;
+  border: none;
+  border-radius: 50px;
+  color: $color-secondary;
+  cursor: pointer;
+  text-decoration: none;
 }

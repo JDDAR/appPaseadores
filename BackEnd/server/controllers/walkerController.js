@@ -38,3 +38,20 @@ exports.updateAvailability = async (userId, isAvailable) => {
     throw error;
   }
 };
+
+// Obtebiendo todos los paseadores
+
+exports.getAllWalkers = async (req, res) => {
+  try {
+    const walkers = await Walker.find().populate(
+      "userId",
+      "name telephone email",
+    );
+    res.status(200).json(walkers);
+  } catch (error) {
+    console.log("Error al obtener paseadores", error);
+    res
+      .status(500)
+      .json({ msg: "Error al obtener los paseadores", info: error.message });
+  }
+};

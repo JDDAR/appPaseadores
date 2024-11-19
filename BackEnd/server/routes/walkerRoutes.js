@@ -22,4 +22,7 @@ module.exports = (app) => {
       });
     }
   });
+
+  //ruta para obtener todos los paseadores
+  app.get("/api/walkers", walkerController.getAllWalkers);
 };

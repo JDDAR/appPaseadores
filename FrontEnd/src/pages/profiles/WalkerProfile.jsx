@@ -11,7 +11,7 @@ const WalkerProfile = () => {
       <header className="headerLogin">
         <HeaderMenu buttonTo="" />
       </header>
-      <div className="container containerProfile">
+      <div className="container containerContent">
         <HeaderProfile />
         <h2>Perfil Walker</h2>
         <ToggleButton />

@@ -96,10 +96,9 @@ const HeaderMenu = () => {
               {isMenuOpen && (
                 <div className="modalHeader">
                   <span className="userProfileHeader__name">{userName}</span>
-                  <button className="buttonRutes" onClick={handleToPerfil}>
-                    {" "}
-                    Ver Perfil{" "}
-                  </button>
+                  <p to="" className="buttonRutes" onClick={handleToPerfil}>
+                    Ver Perfil
+                  </p>
                   <NavLink
                     to="/"
                     className="buttonRutes"

@@ -1,0 +1,25 @@
+@use "../variables" as v;
+
+.walkerList {
+  gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.walkerCard {
+  width: 100%;
+  min-height: 200px;
+  border: 1px solid v.$color-secondary;
+  padding: 25px;
+  display: flex;
+  gap: 25px;
+  border-radius: 6px;
+  &__img {
+    background: v.$color-secondary;
+    width: 20%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

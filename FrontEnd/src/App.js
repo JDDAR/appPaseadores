@@ -8,6 +8,7 @@ import Login from "./pages/login/Login";
 import AdminProfile from "./pages/profiles/AdminProfile";
 import Profiles from "./pages/profiles/Profiles";
 import WalkerRegister from "./components/loginComponents/walkerRegister/WalkerRegister";
+import SeachWalker from "./pages/SearchWalker";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/ownerProfile" element={<OwnerProfile />} />
           <Route path="/walkerProfile" element={<WalkerProfile />} />
           <Route path="/AdminProfile" element={<AdminProfile />} />
+          <Route path="/searchWalker" element={<SeachWalker />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>

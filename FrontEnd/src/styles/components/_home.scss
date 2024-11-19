@@ -1,9 +1,12 @@
-@import "../variables";
+@use "../variables" as v;
 .containerHome {
   padding: 12px;
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &__content {
     height: 100%;
@@ -11,5 +14,19 @@
     background-image: url("../../img/BG/BG01.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
+  }
+  &__homeInfo {
+    width: 50%;
+    position: absolute;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
+    h2 {
+      text-align: center;
+      color: v.$color-primary;
+      font-size: 5rem;
+    }
   }
 }

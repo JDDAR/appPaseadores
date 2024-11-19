@@ -1,11 +1,3 @@
 @use "../../variables" as v;
 @import "./headerPrfile";
 @import "./walkerProfiles/calendarWalker";
-.containerProfile {
-  width: 50%;
-  margin: auto;
-  position: relative;
-  &__Header {
-    border: 1px solid blue;
-  }
-}
