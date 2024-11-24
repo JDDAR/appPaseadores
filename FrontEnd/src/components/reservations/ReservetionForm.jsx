@@ -1,35 +1,56 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { addEvent } from "../../redux/slices/walkerSlice"; // Acción para agregar evento (paseo)
+import { useEffect } from "react";
+import { fetchPets } from "../../redux/slices/ownerSlice"; // Acción para obtener mascotas
+import { addEvent } from "../../redux/slices/walkerSlice"; // Acción para agregar evento
 import { reservationSchema } from "../../schemas/reservationShema";
+import axiosInstance from "../../api/axioInstance";
 // Datos iniciales del formulario
 const initialReservationValues = {
   date: "",
   startTime: "",
   endTime: "",
-  pets: "",
+  selectedPet: "",
   observations: "",
 };
 
-const ReservationForm = () => {
+const ReservationForm = ({ walker }) => {
   const dispatch = useDispatch();
-  const userId = useSelector(
-    (state) => state.register.userData.userDataGeneral.nameUser,
-  ); // Obtener userId desde el estado global
-  console.log(userId);
-  // Función para manejar el envío del formulario
-  const onSubmit = (values) => {
-    // Se agrega el userId al objeto de evento
-    const eventData = { ...values, userId: userId }; // Se agrega el ID del usuario a los datos del evento
+  const userId = useSelector((state) => state.register.userData.userId); // Obtener ID del usuario
+  const pets = useSelector((state) => state.owner.pets); // Obtener mascotas del estado global
+  const status = useSelector((state) => state.owner.status);
 
-    // Despachar la acción para agregar el evento
-    dispatch(addEvent(eventData));
-    console.log(eventData);
-    // Limpiar los campos después de enviar (esto lo maneja Formik internamente)
+  // Cargar las mascotas del usuario cuando el componente se monte
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchPets(userId));
+      console.log(userId);
+    }
+  }, [dispatch, userId]);
+
+  const onSubmit = async (values) => {
+    const eventData = {
+      ...values,
+      userId,
+      walkerId: walker._id,
+    };
+    try {
+      const response = await axiosInstance.post("/api/reservation", eventData);
+      console.log("reserva creada con exito ", response.data);
+      alert("Reserva creada con exito.");
+    } catch (error) {
+      console.log(
+        "Error al crear la reserva... ",
+        error.response?.data || error.message,
+      );
+      alert("ocurrio un error al crar la reserva");
+    }
+
+    console.log("Datos enviados desde el formulario:", eventData);
   };
 
   return (
-    <main>
+    <main className="formReserva">
       <h2>Formulario de Reserva de Paseo</h2>
       <div className="cardForm">
         <Formik
@@ -43,28 +64,45 @@ const ReservationForm = () => {
               <Field name="date" type="date" id="date" autoFocus />
               <ErrorMessage name="date" component="p" className="errorInput" />
             </fieldset>
+            <div className="horarioContainer">
+              <fieldset>
+                <label htmlFor="startTime">Hora de Inicio</label>
+                <Field name="startTime" type="time" id="startTime" />
+                <ErrorMessage
+                  name="startTime"
+                  component="p"
+                  className="errorInput"
+                />
+              </fieldset>
+              <fieldset>
+                <label htmlFor="endTime">Hora de Fin</label>
+                <Field name="endTime" type="time" id="endTime" />
+                <ErrorMessage
+                  name="endTime"
+                  component="p"
+                  className="errorInput"
+                />
+              </fieldset>
+            </div>
             <fieldset>
-              <label htmlFor="startTime">Hora de Inicio</label>
-              <Field name="startTime" type="time" id="startTime" />
+              <label htmlFor="selectedPet">Seleccionar Mascota</label>
+              <Field as="select" name="selectedPet" id="selectedPet">
+                <option value="" disabled>
+                  {status === "loading"
+                    ? "Cargando mascotas..."
+                    : "Selecciona una mascota"}
+                </option>
+                {pets.map((pet) => (
+                  <option key={pet._id} value={pet._id}>
+                    {pet.name} {/* Mostrar el nombre de la mascota */}
+                  </option>
+                ))}
+              </Field>
               <ErrorMessage
-                name="startTime"
+                name="selectedPet"
                 component="p"
                 className="errorInput"
               />
-            </fieldset>
-            <fieldset>
-              <label htmlFor="endTime">Hora de Fin</label>
-              <Field name="endTime" type="time" id="endTime" />
-              <ErrorMessage
-                name="endTime"
-                component="p"
-                className="errorInput"
-              />
-            </fieldset>
-            <fieldset>
-              <label htmlFor="pets">Número de Mascotas</label>
-              <Field name="pets" type="number" id="pets" min="1" />
-              <ErrorMessage name="pets" component="p" className="errorInput" />
             </fieldset>
             <fieldset>
               <label htmlFor="observations">Observaciones</label>

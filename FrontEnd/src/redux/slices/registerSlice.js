@@ -6,7 +6,7 @@ const initialState = {
   step: "user01",
   stepLogin: "signin",
   userDataGeneral: {},
-  petData: {},
+  petData: [],
   walkerData: {},
   userId: null,
   //Cargo los datos desde el localstorage

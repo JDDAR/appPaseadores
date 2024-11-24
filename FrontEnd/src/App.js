@@ -9,11 +9,13 @@ import AdminProfile from "./pages/profiles/AdminProfile";
 import Profiles from "./pages/profiles/Profiles";
 import WalkerRegister from "./components/loginComponents/walkerRegister/WalkerRegister";
 import SeachWalker from "./pages/SearchWalker";
+import Modal from "./components/modals/Modal";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <Modal />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

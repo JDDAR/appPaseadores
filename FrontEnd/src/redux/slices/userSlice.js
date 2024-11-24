@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
-  isAuthenticated: false,
 };
 
 const userSlice = createSlice({
@@ -13,10 +12,6 @@ const userSlice = createSlice({
       //Guardo todo el objeto del usuario
       state.user = action.payload;
       state.isAuthenticated = true;
-    },
-    clearUserData: (state) => {
-      state.user = {}; //Limpiar los datos
-      state.isAuthenticated = false;
     },
   },
 });

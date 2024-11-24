@@ -1,5 +1,6 @@
 import React from "react";
 import HeaderMenu from "../../components/header/HeaderMenu";
+import HeaderProfile from "../../components/profilesComponents/HeaderProfile";
 
 const OwnerProfile = () => {
   return (
@@ -8,7 +9,7 @@ const OwnerProfile = () => {
         <HeaderMenu buttonTo="" />
       </header>
       <div className="container containerContent">
-        <h2>Perfil Owners</h2>
+        <HeaderProfile />
       </div>
     </div>
   );

@@ -3,10 +3,16 @@ import { LuSmilePlus } from "react-icons/lu";
 import { MdPets } from "react-icons/md";
 import { useSelector } from "react-redux";
 
+import { useDispatch } from "react-redux";
+import { setStepLogin } from "../../redux/slices/registerSlice";
 import { NavLink } from "react-router-dom";
 
 const SingUp = () => {
-  const setStep = useSelector((state) => state.register.step);
+  const dispatch = useDispatch();
+  const handleSignIn = () => {
+    dispatch(setStepLogin("signin"));
+  };
+
   return (
     <>
       <main>
@@ -29,7 +35,7 @@ const SingUp = () => {
         </div>
         <p className="footerLogin">
           ¿ Tiene una cuenta ?
-          <span onClick={() => setStep("signin")}> Iniciar sesión</span>
+          <span onClick={handleSignIn}> Iniciar sesión</span>
         </p>
       </main>
     </>

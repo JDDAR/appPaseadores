@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { clearUserData } from "../../redux/slices/userSlice";
+import { clearUserData } from "../../redux/slices/registerSlice";
 
 const HeaderMenu = () => {
   const dispatch = useDispatch();
@@ -97,15 +97,12 @@ const HeaderMenu = () => {
                 <div className="modalHeader">
                   <span className="userProfileHeader__name">{userName}</span>
                   <p to="" className="buttonRutes" onClick={handleToPerfil}>
-                    Ver Perfil
+                    {" "}
+                    Ver Perfil{" "}
                   </p>
-                  <NavLink
-                    to="/"
-                    className="buttonRutes"
-                    onClick={handleLogout}
-                  >
+                  <p to="/" className="buttonRutes" onClick={handleLogout}>
                     Cerrar Sesión
-                  </NavLink>
+                  </p>
                 </div>
               )}
             </div>

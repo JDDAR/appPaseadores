@@ -2,25 +2,39 @@ import React, { useEffect } from "react";
 import HeaderMenu from "../components/header/HeaderMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWalkers } from "../redux/slices/walkerSlice";
-import { useNavigate } from "react-router-dom";
+import { openModal } from "../redux/slices/modalSlice";
+import ReservationForm from "../components/reservations/ReservetionForm";
+//import { clearUserData } from "../redux/slices/registrationSlice";
 
 const SeachWalker = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const walkers = useSelector((state) => state.walker.walkers);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.register.isAuthenticated);
   const loading = useSelector((state) => state.walker.loading);
   const error = useSelector((state) => state.walker.error);
+  const userId = useSelector((state) => state.register.userData.userId);
 
+  //const userid = userData?.userDataGeneral?.id || userData.id;
+  console.log("estado usuario :", isLoggedIn, "id", userId);
   useEffect(() => {
     dispatch(fetchWalkers());
   }, [dispatch]);
 
   const handleReserve = (walkerId) => {
     if (isLoggedIn) {
-      navigate(`/reserve/${walkerId}`);
+      dispatch(
+        openModal({
+          modalContent: "RESERVATION_FORM",
+          modalProps: { walker: walkerId, userId: userId },
+        }),
+      );
     } else {
-      alert("Debes iniciar sesión para realizar una reserva.");
+      dispatch(
+        openModal({
+          modalContent: null,
+          modalProps: { message: "Para reservar debe iniciar sesión" },
+        }),
+      );
     }
   };
 
@@ -55,7 +69,7 @@ const SeachWalker = () => {
                   </p>
                   <button
                     className="button-secondary"
-                    onClick={() => handleReserve(walker.id)}
+                    onClick={() => handleReserve(walker.userId)}
                     disabled={!walker.isAvailable}
                   >
                     Reservar

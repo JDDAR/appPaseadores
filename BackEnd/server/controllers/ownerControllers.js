@@ -37,3 +37,30 @@ exports.registrerOwnerData = async (userId, petData) => {
     throw error;
   }
 };
+
+///Obteniendo las mascotas asociadas a un dueño
+exports.getOwnerPets = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const owner = await Owner.findOne({ userId }).populate("pets");
+
+    if (!owner) {
+      return res.status(404).send({
+        msg: "ERROR",
+        info: "Dueño no encontrado",
+      });
+    }
+
+    res.send({
+      msg: "OK",
+      info: "Mascotas obtenidas exitosamente",
+      pets: owner.pets,
+    });
+  } catch (error) {
+    console.log("Error al obtener mascotas: ", error);
+    res.status(500).send({
+      msg: "ERROR",
+      info: "error a obtener mascotas : " + error.message,
+    });
+  }
+};

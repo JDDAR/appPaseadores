@@ -3,6 +3,7 @@ module.exports = (app) => {
   const authController = require("../controllers/authController");
   const adminController = require("../controllers/adminController");
   const walkerController = require("../controllers/walkerController");
+  const reservationController = require("../controllers/reservationController");
 
   app.route("/api/ownersUsers").get(adminController.getAllUsers);
 
@@ -33,4 +34,10 @@ module.exports = (app) => {
       });
     }
   });
+
+  //Ruta para obtener mascotas
+  app.route("/api/:userId/pets").get(ownerController.getOwnerPets);
+
+  //Rutas de RESERVAS :
+  app.route("/api/reservation").post(reservationController.createReservation);
 };
