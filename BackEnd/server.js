@@ -59,6 +59,9 @@ app.use(bodyParser.json());
 //Ruta para definir origen de los archivos (Ruta absoluta)
 app.use(express.static(path.join(__dirname, "public")));
 
+//Ruta para definir el almacenamiento de las imagenes
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 require("./server/routes/userRoutes")(app);
 require("./server/routes/walkerRoutes")(app);
 

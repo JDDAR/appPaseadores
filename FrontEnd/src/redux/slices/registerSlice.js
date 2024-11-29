@@ -34,10 +34,19 @@ const registerSlice = createSlice({
       state.userId = action.payload;
     },
     setUserData: (state, action) => {
-      state.userData = action.payload;
+      console.log("Payload recibido:", action.payload); // Verifica el contenido aquí
+
+      state.userData = {
+        ...state.userData, // Mantén el resto de los datos existentes
+        ...action.payload, // Sobrescribe solo las propiedades que vienen en el payload
+      };
       state.isAuthenticated = true;
-      //Voy a guardar los datos en el localStorage
-      localStorage.setItem("userData", JSON.stringify(action.payload));
+
+      console.log(
+        "Estado de userData actualizado en Redux Reducer:",
+        state.userData,
+      );
+      localStorage.setItem("userData", JSON.stringify(state.userData));
     },
     setStepLogin: (state, action) => {
       state.stepLogin = action.payload;

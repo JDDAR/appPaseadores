@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { clearUserData } from "../../redux/slices/registerSlice";
+import { clearUserData } from "../../redux/slices/userSlice";
 
 const HeaderMenu = () => {
   const dispatch = useDispatch();
@@ -12,11 +12,16 @@ const HeaderMenu = () => {
 
   //Obtengo los datos del usuario desde el estado
   const userData = useSelector((state) => state.register.userData);
+
+  console.log("use data desde nav", userData);
+
+  useEffect(() => {
+    console.log("Estado actualizado en HeaderNav:", userData);
+  }, [userData]);
   //console.log(userData.userDataGeneral.nameUser);
   // validacion : Uso para evitar errores
   const userName = userData?.userDataGeneral?.nameUser || userData.nameUser;
   const userRole = userData?.userDataGeneral?.role || userData.role;
-
   //Obtengo la inicial del nombre
   const initialName = (name) => {
     if (name) {
@@ -80,7 +85,7 @@ const HeaderMenu = () => {
               {/*Mostrando imagen si está disponible */}
               {userData.profileImage ? (
                 <img
-                  src={userData.profileImage}
+                  src={`http://localhost:2000${userData.profileImage}`}
                   alt="Avatar usuario"
                   className="userProfileHeader__img"
                   onClick={profileClick}

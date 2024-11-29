@@ -22,7 +22,7 @@ function App() {
           <Route path="/login/registroDueño" element={<OwnerRegister />} />
           <Route path="/login/registroPaseador" element={<WalkerRegister />} />
           <Route path="/profile/:userId" element={<Profiles />} />
-          <Route path="/ownerProfile" element={<OwnerProfile />} />
+          <Route path="/ownerProfile/*" element={<OwnerProfile />} />
           <Route path="/walkerProfile" element={<WalkerProfile />} />
           <Route path="/AdminProfile" element={<AdminProfile />} />
           <Route path="/searchWalker" element={<SeachWalker />} />

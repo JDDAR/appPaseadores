@@ -81,6 +81,7 @@ const OwnerRegister02 = () => {
                 <fieldset>
                   <label htmlFor="petAge">Edad de la mascota</label>
                   <Field name="petAge" type="text" id="petAge" />
+                  components{" "}
                   <ErrorMessage
                     name="petAge"
                     component="p"

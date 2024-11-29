@@ -16,8 +16,6 @@ const WalkerProfile = () => {
         <h2>Perfil Walker</h2>
         <ToggleButton />
         <br />
-        <ReservationForm />
-        <br />
         <CalendarWalker />
       </div>
     </div>

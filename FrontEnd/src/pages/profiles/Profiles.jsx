@@ -1,7 +1,9 @@
-import React from "react";
 import HeaderMenu from "../../components/header/HeaderMenu";
+import { useSelector } from "react-redux";
 
 const Profiles = () => {
+  const userData = useSelector((state) => state.register.userData);
+
   return (
     <>
       <div className="container">

@@ -4,6 +4,8 @@ module.exports = (app) => {
   const adminController = require("../controllers/adminController");
   const walkerController = require("../controllers/walkerController");
   const reservationController = require("../controllers/reservationController");
+  const imagesController = require("../controllers/imagesController");
+  const upload = require("../middlewares/upload");
 
   app.route("/api/ownersUsers").get(adminController.getAllUsers);
 
@@ -40,4 +42,10 @@ module.exports = (app) => {
 
   //Rutas de RESERVAS :
   app.route("/api/reservation").post(reservationController.createReservation);
+
+  //Rutas para Procesamiendto de imagene ********s
+
+  app
+    .route("/api/updateProfileImage/:userId")
+    .put(upload.single("profileImage"), imagesController.updateProfileImage);
 };

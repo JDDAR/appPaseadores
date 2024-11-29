@@ -13,6 +13,7 @@ var shemaUser = new Shema({
     enum: ["admin", "walker", "owner"],
     Require: "El rol es obligatorio",
   },
+  profileImage: { type: String, default: "" },
 });
 
 module.exports = mongoose.model("User", shemaUser);

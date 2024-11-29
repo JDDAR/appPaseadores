@@ -33,7 +33,10 @@ const HeaderProfile = () => {
               {initialName(userName)}
             </div>
           )}
-          <h3>{userName}</h3>
+          <div>
+            <h3>{userName}</h3>
+            <h4>{userData.role}</h4>
+          </div>
         </div>
       ) : null}
     </>
