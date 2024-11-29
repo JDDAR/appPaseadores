@@ -24,7 +24,7 @@ const HeaderProfile = () => {
           {/* Mostrando imagen si está disponible */}
           {userData.profileImage ? (
             <img
-              src={userData.profileImage}
+              src={`http://localhost:2000${userData.profileImage}`}
               alt="Avatar usuario"
               className="ProfileHeader__img"
             />

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavProfile = ({ links }) => {
   return (
-    <nav>
+    <nav className="navProfile">
       <ul>
         {links.map((link) => (
           <li key={link.path}>

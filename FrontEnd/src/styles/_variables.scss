@@ -7,6 +7,7 @@ $color-primary: #f8f4f9;
 //$color-secondary: #1c7f84;
 $color-secondary: #008148;
 $color-error: #ff7777;
+$color-font: #1e3231;
 
 $shadow-container:
   rgba($color-secondary, 0.3) 0px 1px 2px 0px,
@@ -31,6 +32,7 @@ body {
   height: 100vh;
   position: relative;
   font-family: $font-family;
+  color: $color-font;
 }
 .button-primary {
   padding: 5px 35px;

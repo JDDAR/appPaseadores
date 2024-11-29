@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axiosInstance from "../../../api/axioInstance";
 import ImageUploader from "../../images/ImageUpĺoader";
-import { setUserData } from "../../../redux/slices/userSlice";
+import { setUserData } from "../../../redux/slices/registerSlice";
 
 const EditProfile = () => {
   const userData = useSelector((state) => state.register.userData);
@@ -76,88 +76,94 @@ const EditProfile = () => {
   };
 
   return (
-    <div>
+    <>
       <h2>Mi Perfil</h2>
-      <div className="infoUser">
-        {isEditing ? (
-          <div>
-            <label>
-              Nombre:
-              <input
-                type="text"
-                name="nameUser"
-                value={editableData.nameUser}
-                onChange={(e) =>
-                  setEditableData({ ...editableData, nameUser: e.target.value })
-                }
-              />
-            </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={editableData.email}
-                onChange={(e) =>
-                  setEditableData({ ...editableData, email: e.target.value })
-                }
-              />
-            </label>
-          </div>
-        ) : (
-          <div>
-            <h3>Nombre: {userData.nameUser}</h3>
-            <h3>Email: {userData.email}</h3>
-            <h3>Rol: {userData.role}</h3>
-          </div>
-        )}
-        <button onClick={() => (isEditing ? handleSave() : setIsEditing(true))}>
-          {isEditing ? "Guardar datos" : "Editar datos"}
-        </button>
-      </div>
-      <div className="profileImageSection">
-        <h3>Foto de Perfil</h3>
-        <div className="imageContainer">
-          {previewImage || selectedImage ? (
-            <img
-              src={selectedImage || previewImage}
-              alt="Foto de perfil"
-              style={{
-                maxWidth: "150px",
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
-            />
+      <div className="contentPerfilEdit">
+        <div className="infoUser">
+          {isEditing ? (
+            <div>
+              <label>
+                Nombre:
+                <input
+                  type="text"
+                  name="nameUser"
+                  value={editableData.nameUser}
+                  onChange={(e) =>
+                    setEditableData({
+                      ...editableData,
+                      nameUser: e.target.value,
+                    })
+                  }
+                />
+              </label>
+              <label>
+                Email:
+                <input
+                  type="email"
+                  name="email"
+                  value={editableData.email}
+                  onChange={(e) =>
+                    setEditableData({ ...editableData, email: e.target.value })
+                  }
+                />
+              </label>
+            </div>
           ) : (
-            <div
-              style={{
-                width: "150px",
-                height: "150px",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#ccc",
-                fontSize: "24px",
-                fontWeight: "bold",
-                color: "#fff",
-              }}
-            >
-              {initialName(userData.nameUser)}
+            <div>
+              <h3>Nombre: {userData.nameUser}</h3>
+              <h3>Email: {userData.email}</h3>
+              <h3>Rol: {userData.role}</h3>
             </div>
           )}
+          <button
+            onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
+          >
+            {isEditing ? "Guardar datos" : "Editar datos"}
+          </button>
         </div>
+        <div className="profileImageSection">
+          <div className="imageContainer">
+            {previewImage || selectedImage ? (
+              <img
+                src={`http://localhost:2000${selectedImage || previewImage}`}
+                alt="Foto de perfil"
+                style={{
+                  maxWidth: "150px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#ccc",
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: "#fff",
+                }}
+              >
+                {initialName(userData.nameUser)}
+              </div>
+            )}
+          </div>
 
-        <ImageUploader
-          onUpload={(file, previewURL) => {
-            setSelectedImage(previewURL); // Actualizar previsualización
-            handleImageUpload(file, previewURL); // Subir la imagen al servidor
-          }}
-          acceptedFormats={["image/jpeg", "image/png", "image/jpg"]}
-          maxSizeMB={2}
-        />
+          <ImageUploader
+            onUpload={(file, previewURL) => {
+              setSelectedImage(previewURL); // Actualizar previsualización
+              handleImageUpload(file, previewURL); // Subir la imagen al servidor
+            }}
+            acceptedFormats={["image/jpeg", "image/png", "image/jpg"]}
+            maxSizeMB={2}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

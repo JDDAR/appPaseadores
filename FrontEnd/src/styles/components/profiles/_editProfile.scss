@@ -1,0 +1,96 @@
+@use "../../variables" as v;
+
+.contentPerfilEdit {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+.infoUser {
+  border: 1px solid rgba(v.$color-secondary, 0.5);
+  width: 100%;
+  border-radius: 12px;
+  padding: 25px;
+}
+.profileImageSection {
+  border: 1px solid rgba(v.$color-secondary, 0.5);
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  border-radius: 12px;
+}
+.containerInputFile {
+  input:file {
+    padding: 10px;
+  }
+}
+/* Contenedor principal */
+.containerInputFile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilo del label personalizado */
+.customFileUpload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: v.$color-primary;
+  border: 2px dashed v.$color-secondary;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+
+.customFileUpload:hover {
+  background-color: rgba(v.$color-secondary, 0.1);
+  border-color: v.$color-secondary;
+}
+
+/* Icono de subida */
+.uploadIcon {
+  font-size: 20px;
+  color: v.$color-secondary;
+}
+
+/* Texto dentro del botón */
+.uploadText {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Ocultar el input real */
+.inputFile {
+  display: none;
+}
+
+/* Estilo del texto de error */
+.errorText {
+  color: red;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* Estilo de la vista previa de la imagen */
+.previewImage {
+  max-width: 200px;
+  margin-top: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Estilo del nombre del archivo */
+.fileNameText {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}

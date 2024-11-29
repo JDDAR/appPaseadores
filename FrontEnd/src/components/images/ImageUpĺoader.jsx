@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import imageCompression from "browser-image-compression";
 
+import { GrUploadOption } from "react-icons/gr";
 const ImageUploader = ({ onUpload, acceptedFormats, maxSizeMB }) => {
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState(null);
@@ -60,24 +61,24 @@ const ImageUploader = ({ onUpload, acceptedFormats, maxSizeMB }) => {
   };
 
   return (
-    <div>
-      <label>
-        Cargar Imagen:
+    <div className="containerInputFile">
+      <label className="customFileUpload">
+        <GrUploadOption className="uploadIcon" />
+        <span className="uploadText">Subir archivo</span>
         <input
           type="file"
           accept={acceptedFormats.join(", ")}
           onChange={handleFileChange}
+          className="inputFile"
         />
       </label>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="errorText">{error}</p>}
       {preview && (
-        <img
-          src={preview}
-          alt="Vista previa"
-          style={{ maxWidth: "200px", marginTop: "10px" }}
-        />
+        <img src={preview} alt="Vista previa" className="previewImage" />
       )}
-      {fileName && <p>Nombre del archivo: {fileName}</p>}
+      {fileName && (
+        <p className="fileNameText">Nombre del archivo: {fileName}</p>
+      )}
     </div>
   );
 };

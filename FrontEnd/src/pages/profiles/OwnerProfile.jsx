@@ -14,12 +14,12 @@ const OwnerProfileLayout = () => {
   return (
     <div className="container">
       <header className="headerLogin">
-        <HeaderMenu buttonTo="" />
+        <HeaderMenu />
       </header>
       <div className="container containerContent">
         <HeaderProfile />
         <NavProfile links={navOwner} />
-        {/* Marcador de posición para rutas hijas */}
+
         <div className="contentProfile">
           <Outlet />
         </div>
