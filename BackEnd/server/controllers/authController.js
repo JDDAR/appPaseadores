@@ -84,6 +84,8 @@ exports.loginUser = async (req, res) => {
       email: user.email,
       role: user.role,
       profileImage: user.profileImage || null,
+      telephone: user.telephone,
+      address: user.address,
     };
 
     //Enviando los datos al cliente

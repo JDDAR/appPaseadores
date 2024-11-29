@@ -1,19 +1,76 @@
 @use "../../variables" as v;
 
+.titleContainerEdit {
+  border-bottom: 1px solid rgba(v.$color-secondary, 0.2);
+  padding-bottom: 15px;
+}
+
 .contentPerfilEdit {
   display: flex;
   justify-content: space-between;
   gap: 25px;
+  margin-top: 25px;
+  position: relative;
+  align-items: flex-start;
+
+  &__InfoContainers {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
 }
 .infoUser {
-  border: 1px solid rgba(v.$color-secondary, 0.5);
+  border: 1px solid rgba(v.$color-secondary, 0.2);
   width: 100%;
+  height: auto;
   border-radius: 12px;
   padding: 25px;
+  position: relative;
+  &__formEdit {
+    padding: 25px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 80px;
+    fieldset {
+      border: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: auto;
+      input {
+        border: 1px soli rgba(v.$color-secondary, 0.2);
+        padding: 3px;
+        width: auto;
+        border-radius: 5px;
+      }
+    }
+  }
+  .buttonEdit {
+    position: absolute;
+    border: none;
+    background: none;
+    right: 5px;
+    top: 5px;
+    font-size: 1.5rem;
+    color: v.$color-secondary;
+  }
+  h3 {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 300;
+  }
+  span {
+    font-size: 0.7rem;
+    font-weight: 900;
+  }
 }
 .profileImageSection {
-  border: 1px solid rgba(v.$color-secondary, 0.5);
+  border: 1px solid rgba(v.$color-secondary, 0.2);
   width: 30%;
+  position: relative;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -4,10 +4,13 @@ import axiosInstance from "../../../api/axioInstance";
 import ImageUploader from "../../images/ImageUpĺoader";
 import { setUserData } from "../../../redux/slices/registerSlice";
 
+import { IoIosSave } from "react-icons/io";
+import { BiSolidMessageSquareEdit } from "react-icons/bi";
+
 const EditProfile = () => {
   const userData = useSelector((state) => state.register.userData);
   const dispatch = useDispatch();
-
+  console.log("DAtos Datos ", userData);
   const [isEditing, setIsEditing] = useState(false);
   const [editableData, setEditableData] = useState({ ...userData });
 
@@ -77,50 +80,109 @@ const EditProfile = () => {
 
   return (
     <>
-      <h2>Mi Perfil</h2>
       <div className="contentPerfilEdit">
-        <div className="infoUser">
-          {isEditing ? (
-            <div>
-              <label>
-                Nombre:
-                <input
-                  type="text"
-                  name="nameUser"
-                  value={editableData.nameUser}
-                  onChange={(e) =>
-                    setEditableData({
-                      ...editableData,
-                      nameUser: e.target.value,
-                    })
-                  }
-                />
-              </label>
-              <label>
-                Email:
-                <input
-                  type="email"
-                  name="email"
-                  value={editableData.email}
-                  onChange={(e) =>
-                    setEditableData({ ...editableData, email: e.target.value })
-                  }
-                />
-              </label>
-            </div>
-          ) : (
-            <div>
-              <h3>Nombre: {userData.nameUser}</h3>
-              <h3>Email: {userData.email}</h3>
-              <h3>Rol: {userData.role}</h3>
-            </div>
-          )}
-          <button
-            onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-          >
-            {isEditing ? "Guardar datos" : "Editar datos"}
-          </button>
+        <div className="contentPerfilEdit__InfoContainers">
+          <div className="infoUser">
+            <h4 className="titleContainerEdit">Mis datos</h4>
+            {isEditing ? (
+              <div className="infoUser__formEdit">
+                <fieldset>
+                  <label>Nombre</label>
+                  <input
+                    type="text"
+                    name="nameUser"
+                    value={editableData.nameUser}
+                    onChange={(e) =>
+                      setEditableData({
+                        ...editableData,
+                        nameUser: e.target.value,
+                      })
+                    }
+                  />
+                </fieldset>
+                <fieldset>
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={editableData.email}
+                    onChange={(e) =>
+                      setEditableData({
+                        ...editableData,
+                        email: e.target.value,
+                      })
+                    }
+                  />
+                </fieldset>
+                <fieldset>
+                  <label>Telefono</label>
+                  <input
+                    type="text"
+                    name="telephone"
+                    value={editableData.telephone}
+                    onChange={(e) =>
+                      setEditableData({
+                        ...editableData,
+                        telephone: e.target.value,
+                      })
+                    }
+                  />
+                </fieldset>
+                <fieldset>
+                  <label>Dirección</label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={editableData.address}
+                    onChange={(e) =>
+                      setEditableData({
+                        ...editableData,
+                        address: e.target.value,
+                      })
+                    }
+                  />
+                </fieldset>
+              </div>
+            ) : (
+              <>
+                <div className="infoUser__formEdit">
+                  <h3>
+                    <span>NOMBRE</span>
+                    {userData.nameUser}
+                  </h3>
+                  <h3>
+                    <span>CORREO</span>
+                    {userData.email}
+                  </h3>
+                  <h3>
+                    <span>TELEFONO</span>
+                    {userData.telephone}
+                  </h3>
+                  <h3>
+                    <span>ROL</span> {userData.role}
+                  </h3>
+                  <h3>
+                    <span>DIRECCIÓN</span>
+                    {userData.address}
+                  </h3>
+                </div>
+              </>
+            )}
+
+            {/********** BOTON ACTUALIZAR **********/}
+            <button
+              onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
+              className="buttonEdit"
+            >
+              {isEditing ? <IoIosSave /> : <BiSolidMessageSquareEdit />}
+            </button>
+          </div>
+          <div className="infoUser">
+            <h4 className="titleContainerEdit">Mis Mascotas</h4>
+          </div>
         </div>
+
+        {/* *********** Contenedor Actualizar imagen ***********  */}
         <div className="profileImageSection">
           <div className="imageContainer">
             {previewImage || selectedImage ? (
@@ -134,25 +196,9 @@ const EditProfile = () => {
                 }}
               />
             ) : (
-              <div
-                style={{
-                  width: "150px",
-                  height: "150px",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "#ccc",
-                  fontSize: "24px",
-                  fontWeight: "bold",
-                  color: "#fff",
-                }}
-              >
-                {initialName(userData.nameUser)}
-              </div>
+              <div>{initialName(userData.nameUser)}</div>
             )}
           </div>
-
           <ImageUploader
             onUpload={(file, previewURL) => {
               setSelectedImage(previewURL); // Actualizar previsualización
