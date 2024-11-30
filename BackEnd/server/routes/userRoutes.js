@@ -48,4 +48,15 @@ module.exports = (app) => {
   app
     .route("/api/updateProfileImage/:userId")
     .put(upload.single("profileImage"), imagesController.updateProfileImage);
+
+  /*********************************************************** RESERVAS */
+  //Ruta para obtener reservas asociadas a usuarios:
+  app
+    .route("/api/reservations/:userId")
+    .get(reservationController.getReservations);
+
+  //Ruta para obtener reservas de parte del walker
+  app
+    .route("/api/walkerReservations/:walkerId")
+    .get(reservationController.getReservationsWalker);
 };

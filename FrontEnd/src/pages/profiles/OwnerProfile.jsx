@@ -5,6 +5,7 @@ import NavProfile from "../../components/profilesComponents/NavProfile";
 import { Routes, Route, Outlet } from "react-router-dom";
 import EditProfile from "../../components/profilesComponents/usersProfiles/EditProfile";
 import ReservationProfile from "../../components/profilesComponents/usersProfiles/ReservationProfile";
+import { useSelector } from "react-redux";
 
 const OwnerProfileLayout = () => {
   const navOwner = [
@@ -29,11 +30,15 @@ const OwnerProfileLayout = () => {
 };
 
 const OwnerProfile = () => {
+  const userId = useSelector((state) => state.register.userData.userId);
   return (
     <Routes>
       <Route path="/" element={<OwnerProfileLayout />}>
         <Route path="edit" element={<EditProfile />} />
-        <Route path="reservations" element={<ReservationProfile />} />
+        <Route
+          path="reservations"
+          element={<ReservationProfile userId={userId} role="user" />}
+        />
       </Route>
     </Routes>
   );

@@ -14,7 +14,7 @@ const initialPetValues = {
   petRecommendations: "",
 };
 
-const OwnerRegister02 = () => {
+const OwnerRegister02 = ({ hideHeader = false }) => {
   const dispatch = useDispatch();
   const { userDataGeneral } = useSelector((state) => state.register);
 
@@ -51,16 +51,21 @@ const OwnerRegister02 = () => {
     <>
       <main className="mainOwner">
         <h3>Datos de la mascota</h3>
-        <header>
-          <button onClick={() => setStep("owner01")} className="buttonSelect">
-            1
-          </button>{" "}
-          <hr />
-          <button className="buttonSelect">2</button> <hr />
-          <button>
-            <LuCheck />
-          </button>
-        </header>
+        {!hideHeader && ( // Renderiza el header solo si hideHeader es false
+          <header>
+            <button
+              onClick={() => dispatch(setStep("owner01"))}
+              className="buttonSelect"
+            >
+              1
+            </button>{" "}
+            <hr />
+            <button className="buttonSelect">2</button> <hr />
+            <button>
+              <LuCheck />
+            </button>
+          </header>
+        )}{" "}
         <div className="cardForm">
           <Formik
             initialValues={initialPetValues}

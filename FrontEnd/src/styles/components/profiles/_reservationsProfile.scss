@@ -1,0 +1,28 @@
+@use "../../variables" as v;
+
+.containerReservation {
+  display: flex;
+  flex-direction: column;
+  h2 {
+    margin-bottom: 25px;
+  }
+  &__listReservation {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    gap: 25px;
+    li {
+      border-radius: 12px;
+      padding: 12px;
+      width: 47%;
+      border: 1px solid rgba(v.$color-secondary, 0.2);
+      line-height: 150%;
+      h3 {
+        color: v.$color-secondary;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(v.$color-secondary, 0.2);
+        margin-bottom: 15px;
+      }
+    }
+  }
+}

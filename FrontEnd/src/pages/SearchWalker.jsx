@@ -20,6 +20,8 @@ const SeachWalker = () => {
     dispatch(fetchWalkers());
   }, [dispatch]);
 
+  console.log("Datos del Walker Home", walkers);
+  console.log("Datos user ID Walker ", userId);
   const handleReserve = (walkerId) => {
     if (isLoggedIn) {
       dispatch(
@@ -53,8 +55,8 @@ const SeachWalker = () => {
               <div key={walker.id} className="walkerCard">
                 <div className="walkerCard__img">
                   <img
-                    src={walker.paseadorImage}
-                    alt={walker.name}
+                    src={`http://localhost:2000${walker.userId.profileImage}`}
+                    alt={walker.name || "Imagen de paseador"}
                     className="walkerImage"
                   />
                 </div>
@@ -70,9 +72,9 @@ const SeachWalker = () => {
                   <button
                     className="button-secondary"
                     onClick={() => handleReserve(walker.userId)}
-                    disabled={!walker.isAvailable}
+                    disabled={!walker.isAvailable || !isLoggedIn}
                   >
-                    Reservar
+                    {isLoggedIn ? "Reservar" : "Inicia sesión para reservar"}
                   </button>
                 </div>
               </div>

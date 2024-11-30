@@ -18,7 +18,7 @@ const reservationShema = new mongoose.Schema(
     },
     walkerId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Walker",
+      ref: "User",
       required: true,
     },
   },

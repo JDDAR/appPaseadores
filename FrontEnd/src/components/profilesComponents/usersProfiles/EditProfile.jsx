@@ -2,49 +2,42 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axiosInstance from "../../../api/axioInstance";
 import ImageUploader from "../../images/ImageUpĺoader";
+import InfoUserEdit from "./InfoUserEdit";
 import { setUserData } from "../../../redux/slices/registerSlice";
-
-import { IoIosSave } from "react-icons/io";
-import { BiSolidMessageSquareEdit } from "react-icons/bi";
+import { openModal } from "../../../redux/slices/modalSlice";
+import { fetchPets } from "../../../redux/slices/ownerSlice";
 
 const EditProfile = () => {
-  const userData = useSelector((state) => state.register.userData);
   const dispatch = useDispatch();
-  console.log("DAtos Datos ", userData);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editableData, setEditableData] = useState({ ...userData });
+  const userData = useSelector((state) => state.register.userData);
+  const petData = useSelector((state) => state.owner.pets);
+
+  useEffect(() => {
+    if (userData.userId) {
+      dispatch(fetchPets(userData.userId));
+      console.log(userData.userId);
+    }
+  }, [dispatch, userData.userId]);
+  console.log(petData);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(userData.profileImage);
 
-  // Manejar carga de imagen al backend
+  /* actualizando la imagen de perfil del usuario ********** */
   const handleImageUpload = async (file, previewURL) => {
-    if (!file) {
-      console.error("No hay imagen seleccionada para subir.");
-      return;
-    }
+    if (!file) return;
 
     const formData = new FormData();
-    formData.append("profileImage", file); // "profileImage" debe coincidir con el campo esperado en el backend
+    formData.append("profileImage", file);
 
     try {
       const response = await axiosInstance.put(
-        `/api/updateProfileImage/${userData.userId}`, // userData.id es el ID del usuario
+        `/api/updateProfileImage/${userData.userId}`,
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
+        { headers: { "Content-Type": "multipart/form-data" } },
       );
 
-      console.log("Respuesta del servidor:", response.data.data);
-
-      // Actualizar Redux con la nueva imagen
       setPreviewImage(previewURL);
-
-      console.log("espuesta data.data ", response.data.data);
-
       dispatch(setUserData(response.data.data));
     } catch (error) {
       console.error(
@@ -53,163 +46,92 @@ const EditProfile = () => {
       );
     }
   };
-  useEffect(() => {
-    console.log("Estado actualizado en Redux:", userData);
-  }, [userData]);
 
-  // Manejar actualización de datos del usuario
-  const handleSave = () => {
-    setIsEditing(false);
-    dispatch({
-      type: "UPDATE_USER_DATA",
-      payload: editableData,
-    });
-    console.log("Datos guardados:", editableData);
+  const handleSaveUserData = (data) => {
+    dispatch({ type: "UPDATE_USER_DATA", payload: data });
   };
 
-  const initialName = (name) => {
-    if (name) {
-      const nameParts = name.split(" ");
-      return nameParts
-        .map((part) => part[0])
-        .join("")
-        .toUpperCase();
-    }
-    return "";
+  const handleAddPet = () => {
+    dispatch(
+      openModal({
+        modalContent: "ADD_PET_FORM",
+        modalProps: { hideHeader: true },
+      }),
+    );
   };
 
   return (
-    <>
-      <div className="contentPerfilEdit">
-        <div className="contentPerfilEdit__InfoContainers">
-          <div className="infoUser">
-            <h4 className="titleContainerEdit">Mis datos</h4>
-            {isEditing ? (
-              <div className="infoUser__formEdit">
-                <fieldset>
-                  <label>Nombre</label>
-                  <input
-                    type="text"
-                    name="nameUser"
-                    value={editableData.nameUser}
-                    onChange={(e) =>
-                      setEditableData({
-                        ...editableData,
-                        nameUser: e.target.value,
-                      })
-                    }
-                  />
-                </fieldset>
-                <fieldset>
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={editableData.email}
-                    onChange={(e) =>
-                      setEditableData({
-                        ...editableData,
-                        email: e.target.value,
-                      })
-                    }
-                  />
-                </fieldset>
-                <fieldset>
-                  <label>Telefono</label>
-                  <input
-                    type="text"
-                    name="telephone"
-                    value={editableData.telephone}
-                    onChange={(e) =>
-                      setEditableData({
-                        ...editableData,
-                        telephone: e.target.value,
-                      })
-                    }
-                  />
-                </fieldset>
-                <fieldset>
-                  <label>Dirección</label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={editableData.address}
-                    onChange={(e) =>
-                      setEditableData({
-                        ...editableData,
-                        address: e.target.value,
-                      })
-                    }
-                  />
-                </fieldset>
-              </div>
-            ) : (
-              <>
-                <div className="infoUser__formEdit">
-                  <h3>
-                    <span>NOMBRE</span>
-                    {userData.nameUser}
-                  </h3>
-                  <h3>
-                    <span>CORREO</span>
-                    {userData.email}
-                  </h3>
-                  <h3>
-                    <span>TELEFONO</span>
-                    {userData.telephone}
-                  </h3>
-                  <h3>
-                    <span>ROL</span> {userData.role}
-                  </h3>
-                  <h3>
-                    <span>DIRECCIÓN</span>
-                    {userData.address}
-                  </h3>
-                </div>
-              </>
-            )}
+    <div className="contentPerfilEdit">
+      <div className="contentPerfilEdit__InfoContainers">
+        {/* Bloque de datos del usuario */}
+        <InfoUserEdit
+          title="Mis datos"
+          data={{
+            nameUser: userData.nameUser,
+            email: userData.email,
+            telephone: userData.telephone,
+            role: userData.role,
+            address: userData.address,
+          }}
+          isEditable={true}
+          onSave={handleSaveUserData}
+        />
 
-            {/********** BOTON ACTUALIZAR **********/}
-            <button
-              onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-              className="buttonEdit"
-            >
-              {isEditing ? <IoIosSave /> : <BiSolidMessageSquareEdit />}
-            </button>
-          </div>
-          <div className="infoUser">
-            <h4 className="titleContainerEdit">Mis Mascotas</h4>
-          </div>
-        </div>
-
-        {/* *********** Contenedor Actualizar imagen ***********  */}
-        <div className="profileImageSection">
-          <div className="imageContainer">
-            {previewImage || selectedImage ? (
-              <img
-                src={`http://localhost:2000${selectedImage || previewImage}`}
-                alt="Foto de perfil"
-                style={{
-                  maxWidth: "150px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
-            ) : (
-              <div>{initialName(userData.nameUser)}</div>
-            )}
-          </div>
-          <ImageUploader
-            onUpload={(file, previewURL) => {
-              setSelectedImage(previewURL); // Actualizar previsualización
-              handleImageUpload(file, previewURL); // Subir la imagen al servidor
-            }}
-            acceptedFormats={["image/jpeg", "image/png", "image/jpg"]}
-            maxSizeMB={2}
-          />
-        </div>
+        {/* Bloque de información de mascotas */}
+        <InfoUserEdit
+          title="Mis Mascotas"
+          data={
+            petData.length > 0
+              ? {
+                  nombre: petData[0].name,
+                  raza: petData[0].breed,
+                  sexo: petData[0].sex,
+                  edad: petData[0].age,
+                  recomendaciones: petData[0].recommendations,
+                }
+              : {} // Renderiza vacío si no hay datos
+          }
+          isEditable={true}
+          onSave={handleSaveUserData}
+        />
+        <button onClick={handleAddPet} className="button-primary">
+          Nueva Mascota
+        </button>
       </div>
-    </>
+
+      {/* Actualizar imagen */}
+      <div className="profileImageSection">
+        <div className="imageContainer">
+          {previewImage || selectedImage ? (
+            <img
+              src={`http://localhost:2000${selectedImage || previewImage}`}
+              alt="Foto de perfil"
+              style={{
+                maxWidth: "150px",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <div>
+              {userData.nameUser
+                ?.split(" ")
+                .map((part) => part[0])
+                .join("")
+                .toUpperCase()}
+            </div>
+          )}
+        </div>
+        <ImageUploader
+          onUpload={(file, previewURL) => {
+            setSelectedImage(previewURL);
+            handleImageUpload(file, previewURL);
+          }}
+          acceptedFormats={["image/jpeg", "image/png", "image/jpg"]}
+          maxSizeMB={2}
+        />
+      </div>
+    </div>
   );
 };
 

@@ -45,7 +45,7 @@ exports.getAllWalkers = async (req, res) => {
   try {
     const walkers = await Walker.find().populate(
       "userId",
-      "name telephone email",
+      "name telephone email profileImage",
     );
     res.status(200).json(walkers);
   } catch (error) {
